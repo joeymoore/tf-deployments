@@ -55,7 +55,7 @@ module "dynamic_ip_associate_policies" {
 
 module "policies" {
   source  = "app.terraform.io/Imperva-OCTO/policies/incapsula"
-  version = "0.0.2"
+  version = "0.0.3"
   countries = var.countries
   ips = var.block_ips
 }
