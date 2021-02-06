@@ -1,0 +1,30 @@
+{
+  "version": 4,
+  "terraform_version": "0.13.5",
+  "serial": 309,
+  "lineage": "9e414df4-6799-6dac-d63e-d2093ea52d47",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "incapsula_policy",
+      "name": "embargo_nation_black",
+      "provider": "provider[\"registry.terraform.io/imperva/incapsula\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": 2398,
+            "description": "block embargoed countries from accessing sites",
+            "enabled": true,
+            "id": "382380",
+            "name": "Block Embargoed Countries",
+            "policy_settings": "[\n    {\n        \"settingsAction\": \"BLOCK\",\n        \"policySettingType\": \"GEO\",\n        \"data\": {\n            \"geo\": {\n                \"countries\": [\n                    \"CU\",\n                    \"IR\",\n                    \"KR\",\n                    \"SD\",\n                    \"SY\",\n                    \"RU\"\n                ]\n            }\n        }\n    }\n]",
+            "policy_type": "ACL"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjAifQ=="
+        }
+      ]
+    }
+  ]
+}

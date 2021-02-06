@@ -1,0 +1,5 @@
+local_id,domain,site_ip
+0,amplify1.pint.center,ac250baf15b8444feb27d47ca075f0f5-1105938788.us-east-2.elb.amazonaws.com
+1,amplify2.pint.center,ac250baf15b8444feb27d47ca075f0f5-1105938788.us-east-2.elb.amazonaws.com
+2,amplify3.pint.center,ac250baf15b8444feb27d47ca075f0f5-1105938788.us-east-2.elb.amazonaws.com
+3,amplify4.pint.center,ac250baf15b8444feb27d47ca075f0f5-1105938788.us-east-2.elb.amazonaws.com
