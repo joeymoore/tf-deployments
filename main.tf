@@ -8,7 +8,8 @@ locals {
 }
 
 module "sites" {
-  source = "../modules/terraform-incapsula-sites"
+  source  = "app.terraform.io/Imperva-OCTO/sites/incapsula"
+  version = "0.0.1"
   for_each = { for site in local.sites : site.local_id => site }
   domain = each.value.domain
   site_ip = each.value.site_ip
@@ -20,44 +21,50 @@ module "sites" {
 module "security_rules" {
   depends_on = [module.sites]
   for_each = module.sites
-  source = "../modules/terraform-incapsula-security-rules"
+  source  = "app.terraform.io/Imperva-OCTO/security-rules/incapsula"
+  version = "0.0.1"
   site_id = module.sites[each.key].site_ids.id
 }
 
-module "associate_policies" {
+module "policies-association" {
+  source  = "app.terraform.io/Imperva-OCTO/policies-association/incapsula"
+  version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  source = "../modules/terraform-incapsula-policies-association"
   asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.embargo_nation_block_id
 }
 
 module "dynamic_country_associate_policies" {
+  source  = "app.terraform.io/Imperva-OCTO/policies-association/incapsula"
+  version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  source = "../modules/terraform-incapsula-policies-association"
   asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.dynamic_country_block_id
 }
 
 module "dynamic_ip_associate_policies" {
+  source  = "app.terraform.io/Imperva-OCTO/policies-association/incapsula"
+  version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  source = "../modules/terraform-incapsula-policies-association"
   asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.dynamic_ip_block_id
 }
 
 module "policies" {
-  source = "../modules/terraform-incapsula-policies"
+  source  = "app.terraform.io/Imperva-OCTO/policies/incapsula"
+  version = "0.0.1"
   countries = ["CA", "JP", "JM"]
   ips = ["209.121.2.0/24", "3.3.3.3"]
 }
 
 module "nel_rules" {
+  source  = "app.terraform.io/Imperva-OCTO/rules/incapsula"
+  version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  source = "../modules/terraform-incapsula-rules"
   site_id = module.sites[each.key].site_ids.id
 }
 
