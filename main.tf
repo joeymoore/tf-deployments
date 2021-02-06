@@ -13,7 +13,7 @@ module "sites" {
   for_each = { for site in local.sites : site.local_id => site }
   domain = each.value.domain
   site_ip = each.value.site_ip
-  account_id = 2398
+  account_id = var.account_id
   force_ssl = true
   ignore_ssl = true
 }
@@ -56,8 +56,8 @@ module "dynamic_ip_associate_policies" {
 module "policies" {
   source  = "app.terraform.io/Imperva-OCTO/policies/incapsula"
   version = "0.0.1"
-  countries = ["CA", "JP", "JM"]
-  ips = ["209.121.2.0/24", "3.3.3.3"]
+  countries = var.countries
+  ips = var.block_ips
 }
 
 module "nel_rules" {
