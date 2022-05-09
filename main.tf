@@ -9,7 +9,7 @@ locals {
 }
 
 module "sites" {
-  source  = "../modules/terraform-incapsula-sites"
+  source  = "app.terraform.io/Imperva-OCTO/sites/incapsula"
   for_each = { for site in local.sites : site.local_id => site }
   domain = each.value.domain
   site_ip = each.value.site_ip
