@@ -21,24 +21,8 @@ module "sites" {
 module "security_rules" {
   depends_on = [module.sites]
   for_each = module.sites
-  source  = "../modules/terraform-incapsula-security-rules"
+  source  = "app.terraform.io/Imperva-OCTO/security-rules/incapsula"
   site_id = module.sites[each.key].site.id
-}
-
-module "security_rule_exceptions" {
-  source = "../modules/terraform-incapsula-security-rule-exceptions"
-  for_each = module.sites
-  site_id = module.sites[each.key].site.id
-//  backdoor_security_rule_exception = {
-//      client_apps="485"
-//      countries=""
-//      continents=""
-//      ips=""
-//      url_patterns=""
-//      urls=""
-//      user_agents=""
-//      parameters=""
-//    }
 }
 
 module "policies-association" {
