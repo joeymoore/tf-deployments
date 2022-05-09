@@ -75,6 +75,3 @@ output "sqli" {
   value = [for rule in module.security_rules : rule.waf-sql-injection-rule ]
 }
 
-output "exceptions" {
-  value = [for e in module.security_rule_exceptions : e.rule-exceptions ]
-}
