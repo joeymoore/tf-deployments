@@ -22,7 +22,7 @@ module "security_rules" {
   depends_on = [module.sites]
   for_each = module.sites
   source  = "app.terraform.io/Imperva-OCTO/security-rules/incapsula"
-  site_id = module.sites[each.key].site_ids
+  site_id = module.sites[each.key].site
 }
 
 module "policies-association" {
@@ -30,7 +30,7 @@ module "policies-association" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites[each.key].site_ids
+  asset_id = module.sites[each.key].site
   policy_id = module.policies.embargo_nation_block_id
 }
 
@@ -39,7 +39,7 @@ module "dynamic_country_associate_policies" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites[each.key].site_ids
+  asset_id = module.sites[each.key].site
   policy_id = module.policies.dynamic_country_block_id
 }
 
@@ -48,7 +48,7 @@ module "dynamic_ip_associate_policies" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites[each.key].site_ids
+  asset_id = module.sites[each.key].site
   policy_id = module.policies.dynamic_ip_block_id
 }
 
@@ -64,7 +64,7 @@ module "nel_rules" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  site_id = module.sites[each.key].site_ids
+  site_id = module.sites[each.key].site
 }
 
 output "site-ids" {
