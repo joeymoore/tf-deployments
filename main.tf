@@ -14,6 +14,7 @@ module "sites" {
   domain = each.value.domain
   site_ip = each.value.site_ip
   account_id = var.account_id
+  active = ""
 }
 
 module "security_rules" {
