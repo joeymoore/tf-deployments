@@ -14,6 +14,9 @@ module "sites" {
   domain = each.value.domain
   site_ip = each.value.site_ip
   account_id = var.account_id
+  force_ssl = true
+  ignore_ssl = true
+  remove_ssl = true
 }
 
 module "security_rules" {
