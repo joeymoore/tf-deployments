@@ -16,6 +16,7 @@ module "sites" {
   account_id = var.account_id
   force_ssl = false
   ignore_ssl = false
+  remove_ssl = true
 }
 
 module "security_rules" {
