@@ -1,7 +1,6 @@
 provider "incapsula" {
   api_id = var.api_id
   api_key = var.api_key
-//  base_url = "https://my.impervaservices.com/api/prov/v1"
 }
 
 locals {
@@ -10,6 +9,7 @@ locals {
 
 module "sites" {
   source  = "app.terraform.io/Imperva-OCTO/sites/incapsula"
+  version = "0.0.1"
   for_each = { for site in local.sites : site.local_id => site }
   domain = each.value.domain
   site_ip = each.value.site_ip
@@ -22,7 +22,8 @@ module "security_rules" {
   depends_on = [module.sites]
   for_each = module.sites
   source  = "app.terraform.io/Imperva-OCTO/security-rules/incapsula"
-  site_id = module.sites.site_ids
+  version = "0.0.1"
+  site_id = module.sites[each.key].site_ids.id
 }
 
 module "policies-association" {
@@ -30,7 +31,7 @@ module "policies-association" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites.site_ids
+  asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.embargo_nation_block_id
 }
 
@@ -39,7 +40,7 @@ module "dynamic_country_associate_policies" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites.site_ids
+  asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.dynamic_country_block_id
 }
 
@@ -48,7 +49,7 @@ module "dynamic_ip_associate_policies" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  asset_id = module.sites.site_ids
+  asset_id = module.sites[each.key].site_ids.id
   policy_id = module.policies.dynamic_ip_block_id
 }
 
@@ -64,14 +65,9 @@ module "nel_rules" {
   version = "0.0.1"
   depends_on = [module.sites]
   for_each = module.sites
-  site_id = module.sites.site_ids
+  site_id = module.sites[each.key].site_ids.id
 }
 
 output "site-ids" {
-  value = [for id in module.sites : id.site[*].id]
+  value = [for id in module.sites : id.site_ids[*].id]
 }
-
-output "sqli" {
-  value = [for rule in module.security_rules : rule.waf-sql-injection-rule ]
-}
-
