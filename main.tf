@@ -18,6 +18,7 @@ module "sites" {
   ignore_ssl = true
   remove_ssl = true
   domain_validation = "html"
+  active = ""
 }
 
 module "security_rules" {
